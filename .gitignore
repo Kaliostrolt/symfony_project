@@ -14,12 +14,6 @@ docker-compose.local.yml
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-/config/portal/validation.yaml
-/src/Entity/.gitignore
-/src/Controller/.gitignore
-/src/Repository/.gitignore
-/src/Migrations/.gitignore
-/config/jwt
 /public/temp/*
 !/public/temp/.gitignore
 
