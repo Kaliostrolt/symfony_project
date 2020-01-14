@@ -1,0 +1,49 @@
+###> symfony/framework-bundle ###
+/.idea
+/public/bundles/
+/var/
+/vendor/
+/config/packages/security_local.yaml
+### config ###
+auth.json
+docker-compose.local.yml
+
+###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+/config/portal/validation.yaml
+/src/Entity/.gitignore
+/src/Controller/.gitignore
+/src/Repository/.gitignore
+/src/Migrations/.gitignore
+/config/jwt
+/public/temp/*
+!/public/temp/.gitignore
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###
+
+/public/.version
+/public/docs-php/*
+!/public/docs-php/.htaccess
+!/public/docs-php/.htpasswd
+phpDocumentor.phar
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+/phpcs.xml.dist
+###< squizlabs/php_codesniffer ###
+
+###> env files ###
+*.local
+###< env files ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
