@@ -2,6 +2,7 @@ version:  "3.7"
 services:
     mysql:
         image: mysql:8.0
+        container_name: mysql_sp
         restart: on-failure
         environment:
             MYSQL_ROOT_PASSWORD: 12345
@@ -9,11 +10,12 @@ services:
 
     nginx:
         image: nginx:1.15.3-alpine
+        container_name: nginx_sp
         restart: on-failure
         depends_on:
             - php-fpm
         volumes:
-            - './public:/usr/src/app'
+            - './public:/usr/src/app/public'
             - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro'
         ports:
             - '8080:80'
@@ -22,6 +24,7 @@ services:
         build:
             context: .
             dockerfile: docker/php/Dockerfile
+        container_name: php_fpm_sp
         volumes:
             - './:/usr/src/app'
         restart: on-failure
