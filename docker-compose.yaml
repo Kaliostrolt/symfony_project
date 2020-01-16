@@ -9,7 +9,9 @@ services:
             MYSQL_ROOT_PASSWORD: 12345
             MYSQL_DATABASE: symfony_project
         ports:
-        - '3306:3306'
+            - '3306:3306'
+        volumes:
+            - mysql-data:/var/lib/mysql
 
     nginx:
         image: nginx:1.15.3-alpine
@@ -34,4 +36,7 @@ services:
         env_file:
             - .env
         user: 1000:1000
+
+volumes:
+    mysql-data
 
