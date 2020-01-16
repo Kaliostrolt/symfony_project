@@ -4,9 +4,12 @@ services:
         image: mysql:8.0
         container_name: mysql_sp
         restart: on-failure
+        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: 12345
             MYSQL_DATABASE: symfony_project
+        ports:
+        - '3306:3306'
 
     nginx:
         image: nginx:1.15.3-alpine
