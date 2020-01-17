@@ -1,5 +1,9 @@
 FROM php:7.3-fpm
 
+ENV PROJECT_DIR /usr/src/app
+ARG BUILD_MODE=dev
+ARG BUILD_NO_XDEBUG=''
+
 RUN docker-php-ext-install pdo_mysql
 
 RUN pecl install apcu
@@ -19,22 +23,20 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # install/enable xdebug (for "dev" build mode)
 # Note: we do it AFTER composer execution to speed up the build process
-ARG BUILD_NO_XDEBUG=''
 RUN if [ "$BUILD_MODE" = "dev" -a -z "$BUILD_NO_XDEBUG" ] ; then \
     pecl install xdebug-2.7.0 \
         && docker-php-ext-enable xdebug \
 # copy custom PHP xdebug config (if any)
-    ; if [ -f ${PROJECT_DIR}/docker/backend/xdebug.ini ]; then \
-        cp -f ${PROJECT_DIR}/docker/backend/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    ; if [ -f ${PROJECT_DIR}/docker/php/xdebug.ini ]; then \
+        cp -f ${PROJECT_DIR}/docker/php/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     ; fi \
 ; fi
 
 # install optional software (convenient for development)
 RUN if [ "$BUILD_MODE" = "dev" ] ; then apt-get install -y \
-    mc \
     iputils-ping \
 ; fi
 
-WORKDIR /usr/src/app
+WORKDIR ${PROJECT_DIR}
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
