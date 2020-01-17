@@ -4,7 +4,6 @@ services:
         image: mysql:5.7
         container_name: mysql_sp
         restart: on-failure
-        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: 12345
             MYSQL_DATABASE: symfony_project
@@ -36,7 +35,8 @@ services:
         restart: on-failure
         env_file:
             - .env
-        user: 1000:1000
+        links:
+          - mysql
 
 volumes:
     mysql-data:

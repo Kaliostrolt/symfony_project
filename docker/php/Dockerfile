@@ -4,15 +4,14 @@ ENV PROJECT_DIR /usr/src/app
 ARG BUILD_MODE=dev
 ARG BUILD_NO_XDEBUG=''
 
-RUN docker-php-ext-install pdo_mysql
-
 RUN pecl install apcu
 
 RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev
 RUN docker-php-ext-install zip
-
+RUN docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-enable pdo pdo_mysql
 RUN docker-php-ext-enable apcu
 
 # install composer
@@ -39,4 +38,5 @@ RUN if [ "$BUILD_MODE" = "dev" ] ; then apt-get install -y \
 
 WORKDIR ${PROJECT_DIR}
 
+RUN usermod -u 1000 www-data
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
