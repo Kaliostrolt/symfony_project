@@ -13,10 +13,6 @@ class MainController extends AbstractController
      */
     public function getMainPage()
     {
-        $a = 5;
-
-        $b = $a + 10;
-
         return new Response('hello world');
     }
 }
