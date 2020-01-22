@@ -39,8 +39,7 @@ final class Version20200121124939 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        $keyRoles=implode("', '", array_keys($this->roles));
+        $keyRoles = implode("', '", array_keys($this->roles));
         $this->addSql("DELETE FROM role WHERE name IN('$keyRoles')");
-
     }
 }
