@@ -27,6 +27,7 @@ class UserService
     /**
      * @param string $email
      * @param string $passwd
+     * @throws \Exception
      */
     public function createAdmin(string $email, string  $passwd)
     {
@@ -36,11 +37,11 @@ class UserService
         /** @var Role $adminRole */
         $adminRole = $rolesReposiroty->findOneBy(['name' => 'admin']);
 
-        $admin = new User();
-        $admin->setRoles($adminRole);
-        $admin->setEmail($email);
-        $admin->setPassword($passwd);
-        $admin->setData();
+        $admin = (new User())
+            ->setRoles($adminRole)
+            ->setEmail($email)
+            ->setPassword($passwd)
+            ->setData();
         $entityManager->persist($admin);
         $entityManager->flush();
     }

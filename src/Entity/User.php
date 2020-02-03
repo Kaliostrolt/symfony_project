@@ -93,15 +93,24 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-    public function setData():self
+
+    /**
+     * @return $this
+     * @throws \Exception
+     */
+    public function setData(): self
     {
-        $this->creadedAt = new \DateTime("now");
+        $this->creadedAt = new \DateTime();
 
         return $this;
     }
