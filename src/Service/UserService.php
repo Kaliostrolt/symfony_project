@@ -1,13 +1,10 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Console\Question\Question;
 
 class UserService
 {
