@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService
 {
@@ -12,13 +13,16 @@ class UserService
      * @var EntityManagerInterface
      */
     private $entityManager;
+    private $encoder;
 
     /**
      * @param EntityManagerInterface $entityManager
+     * @param userPasswordEncoderInterface $encoder
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, userPasswordEncoderInterface $encoder)
     {
         $this->entityManager = $entityManager;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -33,12 +37,12 @@ class UserService
 
         /** @var Role $adminRole */
         $adminRole = $rolesReposiroty->findOneBy(['name' => 'admin']);
-
         $admin = (new User())
             ->setRoles($adminRole)
             ->setEmail($email)
-            ->setPassword($passwd)
             ->setData();
+        $password = $this->encoder->encodePassword($admin, $passwd);
+        $admin->setPassword($password);
         $entityManager->persist($admin);
         $entityManager->flush();
     }
