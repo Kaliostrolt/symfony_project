@@ -30,7 +30,7 @@ class UserService
      * @param string $passwd
      * @throws \Exception
      */
-    public function createAdmin(string $email, string  $passwd)
+    public function createAdmin(string $email, string $passwd)
     {
         $entityManager = $this->entityManager;
         $rolesReposiroty = $this->entityManager->getRepository(Role::class);

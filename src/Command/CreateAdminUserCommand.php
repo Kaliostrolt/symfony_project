@@ -48,8 +48,9 @@ class CreateAdminUserCommand extends Command
         $questionPassword = new Question('enter please password: ', '');
         $password = $helper->ask($input, $output, $questionPassword);
         $output->writeln('Admin create');
+        $userRole ='admin';
 
-        $this->userService->createAdmin($email, $password);
+        $this->userService->createAdmin( $email, $password);
 
         return 0;
     }
